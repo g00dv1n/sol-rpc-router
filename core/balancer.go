@@ -22,7 +22,7 @@ type RoundRobinBalancer struct {
 
 func NewRoundRobinBalancer(servers []ServerEndpoint) (*RoundRobinBalancer, error) {
 	if len(servers) == 0 {
-		return nil, errors.New("empty servers list")
+		return nil, errors.New("[RR] empty servers list")
 	}
 
 	return &RoundRobinBalancer{
@@ -51,7 +51,7 @@ type WeightedRoundRobinBalancer struct {
 
 func NewWeightedRoundRobinBalancer(servers []ServerEndpoint) (*WeightedRoundRobinBalancer, error) {
 	if len(servers) == 0 {
-		return nil, errors.New("empty servers list")
+		return nil, errors.New("[RR] empty servers list")
 	}
 
 	var maxWeight, totalWeight uint64
@@ -67,7 +67,7 @@ func NewWeightedRoundRobinBalancer(servers []ServerEndpoint) (*WeightedRoundRobi
 	}
 
 	if totalWeight == 0 {
-		return nil, errors.New("total weight of servers is zero")
+		return nil, errors.New("[WRR] total weight of servers is zero")
 	}
 
 	return &WeightedRoundRobinBalancer{

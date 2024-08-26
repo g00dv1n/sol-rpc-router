@@ -18,14 +18,15 @@ type RouterHandler struct {
 
 func NewRouter(regular Route, das Route) (*RouterHandler, error) {
 	regularBalancer, err := regular.GetBalancer()
+
 	if err != nil {
-		return nil, errors.New("empty regular servers list")
+		return nil, err
 	}
 
 	dasBalancer, err := das.GetBalancer()
 
 	if err != nil {
-		return nil, errors.New("empty das servers list")
+		return nil, err
 	}
 
 	return &RouterHandler{
