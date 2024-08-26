@@ -9,14 +9,14 @@ import (
 	"os"
 	"path"
 
-	"github.com/g00dv1n/sol-rpc-router/core"
+	"github.com/g00dv1n/sol-rpc-router/pkg/router"
 )
 
 type ProxyServerConfig struct {
-	Port       int        `json:"port"`
-	Host       string     `json:"host,omitempty"`
-	RegularRpc core.Route `json:"regularRpc"`
-	DasRpc     core.Route `json:"dasRpc"`
+	Port       int          `json:"port"`
+	Host       string       `json:"host,omitempty"`
+	RegularRpc router.Route `json:"regularRpc"`
+	DasRpc     router.Route `json:"dasRpc"`
 }
 
 func main() {
@@ -55,9 +55,9 @@ func main() {
 	}
 }
 
-func NewProxyServer(addr string, regular core.Route, das core.Route) error {
+func NewProxyServer(addr string, regular router.Route, das router.Route) error {
 	server := http.NewServeMux()
-	router, err := core.NewRouter(regular, das)
+	router, err := router.NewRouter(regular, das)
 
 	if err != nil {
 		return err

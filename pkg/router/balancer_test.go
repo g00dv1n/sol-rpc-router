@@ -1,8 +1,13 @@
-package core
+package router
 
 import (
 	"sync"
 	"testing"
+)
+
+const (
+	totalReq = 100000
+	concrReq = 25
 )
 
 func TestRoundRobinBalancer(t *testing.T) {
@@ -13,9 +18,6 @@ func TestRoundRobinBalancer(t *testing.T) {
 	}
 
 	balancer, _ := NewRoundRobinBalancer(servers)
-
-	totalReq := 1000
-	concrReq := 20
 
 	serverCounts := BalancerTest(balancer, totalReq, concrReq)
 
@@ -31,9 +33,6 @@ func TestWeightedRoundRobinBalancer(t *testing.T) {
 	}
 
 	balancer, _ := NewWeightedRoundRobinBalancer(servers)
-
-	totalReq := 1000
-	concrReq := 20
 
 	serverCounts := BalancerTest(balancer, totalReq, concrReq)
 
