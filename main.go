@@ -35,15 +35,17 @@ func main() {
 	configFileRaw, fileErr := os.ReadFile(configPath)
 
 	if fileErr != nil {
-		log.Fatal(fileErr)
+		log.Fatalf("Can't open config file: %s", fileErr)
 	}
 
 	var proxyServerConfig ProxyServerConfig
 	jsonErr := json.Unmarshal(configFileRaw, &proxyServerConfig)
 
 	if jsonErr != nil {
-		log.Fatal(jsonErr)
+		log.Fatalf("Can't parse config: %s \n", jsonErr)
 	}
+
+	log.Printf("[+] Config file %s loaded \n", path.Base(configPath))
 
 	addr := fmt.Sprintf("%s:%d", proxyServerConfig.Host, proxyServerConfig.Port)
 
@@ -63,7 +65,7 @@ func NewProxyServer(addr string, regular core.Route, das core.Route) error {
 
 	server.Handle("/", router)
 
-	log.Printf("Running proxy server on %s", addr)
+	log.Printf("[+] Running proxy server on %s", addr)
 
 	return http.ListenAndServe(addr, server)
 }
