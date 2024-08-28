@@ -6,7 +6,7 @@ The Solana RPC Router is a tool designed to efficiently route and balance traffi
 
 ```sh
 make build
-./sol-rpc-router -c proxy_config.json
+./bin/sol-rpc-router -c proxy_config.json
 ```
 
 Set up the router behind NGINX or in a Docker container, and use it as a universal endpoint for all your RPC calls within your app.
