@@ -17,13 +17,13 @@ type RouterHandler struct {
 }
 
 func NewRouter(regular Route, das Route) (*RouterHandler, error) {
-	regularBalancer, err := regular.GetBalancer()
+	regularBalancer, err := regular.Balancer()
 
 	if err != nil {
 		return nil, err
 	}
 
-	dasBalancer, err := das.GetBalancer()
+	dasBalancer, err := das.Balancer()
 
 	if err != nil {
 		return nil, err
@@ -65,7 +65,7 @@ type Route struct {
 	Servers      []ServerEndpoint `json:"servers"`
 }
 
-func (r Route) GetBalancer() (Balancer, error) {
+func (r Route) Balancer() (Balancer, error) {
 	switch r.BalancerType {
 	case "rr":
 		return NewRoundRobinBalancer(r.Servers)
