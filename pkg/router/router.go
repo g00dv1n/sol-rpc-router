@@ -48,7 +48,7 @@ func (h *RouterHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	///
 
 	/// PROXY SET UP
-	targetRpcUrl := h.getProxyTarget(&rpcReq)
+	targetRpcUrl := h.NextServer(&rpcReq)
 	proxy := httputil.NewSingleHostReverseProxy(targetRpcUrl)
 	r.Host = targetRpcUrl.Host
 
@@ -56,8 +56,8 @@ func (h *RouterHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	proxy.ServeHTTP(w, r)
 }
 
-func (h *RouterHandler) getProxyTarget(rpcReq *RPCRequest) *url.URL {
-	return h.routes[rpcReq.GetRequestType()].NextServer()
+func (h *RouterHandler) NextServer(rpcReq *RPCRequest) *url.URL {
+	return h.routes[rpcReq.RequestType()].NextServer()
 }
 
 type Route struct {

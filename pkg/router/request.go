@@ -26,7 +26,7 @@ var DasMethods = [...]string{
 	"getAssetsByAuthority",
 }
 
-func (r *RPCRequest) GetRequestType() RPCRequestType {
+func (r *RPCRequest) RequestType() RPCRequestType {
 	if r.IsDasRequest() {
 		return DasRPCRequest
 	}
