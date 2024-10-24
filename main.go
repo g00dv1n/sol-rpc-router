@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"log/slog"
 	"net/http"
 	"os"
 	"path"
@@ -19,7 +20,11 @@ type ProxyServerConfig struct {
 	DasRpc     router.Route `json:"dasRpc"`
 }
 
+var logger *slog.Logger
+
 func main() {
+	logger = slog.New(slog.NewTextHandler(os.Stdout, nil))
+
 	exDir, dirErr := os.Getwd()
 	if dirErr != nil {
 		log.Fatal(dirErr)
@@ -45,7 +50,7 @@ func main() {
 		log.Fatalf("Can't parse config: %s \n", jsonErr)
 	}
 
-	log.Printf("[+] Config file %s loaded \n", path.Base(configPath))
+	logger.Info("Config file loaded", "path", path.Base(configPath))
 
 	addr := fmt.Sprintf("%s:%d", proxyServerConfig.Host, proxyServerConfig.Port)
 
@@ -65,7 +70,7 @@ func NewProxyServer(addr string, regular router.Route, das router.Route) error {
 
 	server.Handle("/", router)
 
-	log.Printf("[+] Running proxy server on %s", addr)
+	logger.Info("Running proxy server", "addr", addr)
 
 	return http.ListenAndServe(addr, server)
 }

@@ -45,3 +45,5 @@ Set up the router behind NGINX or in a Docker container, and use it as a univers
   }
 }
 ```
+
+Made for [Solana Hacker Telegram Bot](https://hackers.tools/d/solana-hacker-bot).

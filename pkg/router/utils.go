@@ -22,7 +22,7 @@ func MustConvertToEndpoint(rawUrl string, weight uint64) ServerEndpoint {
 	endpoint, err := ConvertToEndpoint(rawUrl, weight)
 
 	if err != nil {
-		log.Panic(err)
+		log.Fatal(err)
 	}
 
 	return endpoint
